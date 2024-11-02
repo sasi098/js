@@ -1,0 +1,263 @@
+FOR INCREMENT COUNTER
+HTML 
+
+<!-- <h3 id="num"></h3>
+    <button id="inc">INCREMENT</button>
+    <button id="reset">RESET</button>
+    <button id="dec">DECREMENT</button> -->
+
+JS
+// let num = 0;
+// document.getElementById("num").textContent = num;
+// document.getElementById("inc").onclick = function () {
+//   num++;
+//   document.getElementById("num").textContent = num;
+// };
+
+// document.getElementById("reset").onclick = function () {
+//   num = 0;
+//   document.getElementById("num").textContent = num;
+// };
+
+// document.getElementById("dec").onclick = function () {
+//   num--;
+//   document.getElementById("num").textContent = num;
+// };
+
+-----------------------------------------------------------------------
+
+FIRST NAME : 
+
+HTML :
+<label>enter email</label>
+    <input type="text" id="email" />
+    <p id="name"></p>
+    <button type="submit" id="submit">submit</button>
+
+JS
+
+document.getElementById("submit").onclick = function () {
+  let name = document.getElementById("email").value;
+
+  const firstind = name.indexOf("@");
+  const first = name.slice(0, firstind);
+
+  document.getElementById("name").textContent = first;
+};
+
+
+--------------------------------------
+
+//RANDOM PASSWORD GENERATOR
+
+const length = 12;
+const large = true;
+const small = true;
+const num = true;
+const sym = true;
+
+const k = passwordGenerator(length, large, small, num, sym);
+
+function passwordGenerator(length, large, small, num, sym) {
+  let password = "";
+  let chars = "";
+  let smallchar = "abcdefghijklmnopqrstuvwxyz";
+  let largechar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let numchar = "0123456789";
+  let symchar = "!@#$%^&*()_+";
+
+  chars += small ? smallchar : "";
+  chars += large ? largechar : "";
+  chars += num ? numchar : "";
+  chars += sym ? symchar : "";
+  if (length == 0) {
+    return `(provide length)`;
+  } else if (chars.length === 0) {
+    return "no character types selected";
+  }
+  for (let i = 0; i < length; i++) {
+    const random = Math.floor(Math.random() * chars.length);
+    password += chars[random];
+  }
+
+  return password;
+}
+
+console.log(k);
+
+
+-------------------------------------------------------------------------------
+
+CALL BACK
+
+add(print, 3, 4);
+
+function add(callback, x, y) {
+  let result = x + y; //EXECUTTES RESULT X+Y
+  callback(result); //PASSES ARGUMENT TO callback//CALL ME AFTER COMPLETING YOUR WOTK MEAN X+Y
+}
+
+function print(result) {
+  console.log(result);
+}
+
+------------------------------------------------------------------------------------------
+
+MAP FUNCTION = APPLICES CALLBACK TO ELEMENT INTO ARRAY AND RETURNS NEW ARRAY AFTER MODIFICATION 
+
+const dates = ["2020-1-2", "2021-3-3", "2024-4-3"];
+const formatted = dates.map(formatdates);
+console.log(formatted);
+function formatdates(element) {
+  const part = element.split("-");
+  return `${part[1]}/${part[2]}/${part[0]}`;
+}
+
+
+
+----------------------------------------------------------
+
+
+setTimeout(function () {
+  console.log("hello");
+}, 9000);
+
+
+-----------------------------------------------------------
+
+//DIGITAL CLOCK PROGRAM
+
+HTML :
+
+<div id="container">
+      <p id="out"></p>
+    </div>
+
+
+JS:
+
+function change() {
+  const date = new Date();
+  let hour = date.getHours();
+  const meridian = hour >= 12 ? "PM" : "AM";
+  hour = hour.toString().padStart(2, 0);
+  const min = date.getMinutes().toString().padStart(2, 0);
+  const sec = date.getSeconds().toString().padStart(2, 0);
+  const output = `${hour} : ${min} : ${sec} ${meridian}`;
+  document.getElementById("out").textContent = output;
+}
+
+change();
+setInterval(change, 1000);
+
+------------------------------------------------
+
+<div>
+      <div>
+        <h2>my stop watch</h2>
+      </div>
+      <div id="container">
+        <div id="display">00:00:00:00</div>
+        <div id="controls">
+          <button id="start" onclick="start()">START</button>
+          <button id="stop" onclick="stop()">STOP</button>
+          <button id="reset" onclick="reset()">RESET</button>
+        </div>
+      </div>
+    </div>
+
+---------------------------------------------------------------------------
+
+CALCULATOR PROGRAM
+
+<div>
+      <input id="display1" readonly />
+      <div id="keys">
+        <button onclick="appendToDisplay('+')">+</button>
+        <button onclick="appendToDisplay('-')">-</button>
+        <button onclick="appendToDisplay('/')">/</button>
+        <button onclick="appendToDisplay('*')">*</button>
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="display()">=</button>
+        <button onclick="clerar()">C</button>
+      </div>
+    </div>
+
+
+JS :
+
+const out = document.getElementById("display1");
+function appendToDisplay(input) {
+  out.value += input;
+}
+
+function clear() {
+  out.value = "";
+}
+
+function display() {
+  try {
+    out.value = eval(out.value);
+  } catch (err) {
+    out.value = "Error";
+  }
+}
+
+--------------------------------------------------------------------------------
+
+
+EXAMPLE DATA FETCHING FROM APPLICESfetch("https://pokeapi.co/api/v2/pokemon/pikachu")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error("error in fetching data");
+    }
+    return response.json();
+  })
+  .then((data) => console.log(data.weight))
+  .catch((err) => console.log(err));
+
+
+---------------------------------------------------------------------------------
+
+FETCHING EXAMPLE
+
+HTML :
+
+<div>
+      <input type="text" id="input" />
+      <button type="submit" onclick="get()">GET POKEMON</button>
+      <img src="" id="img" style="display: none" alt="pokemon_sprite" />
+    </div>
+
+JS
+
+async function get() {
+  try {
+    const input = document.getElementById("input").value.toLowerCase();
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`);
+    if (!res.ok) {
+      throw new Error("error in fetching data");
+    }
+
+    const data = await res.json();
+    const pok = data.sprites.front_default;
+    const img = document.getElementById("img");
+    img.src = pok;
+    img.style.display = "block";
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+---------------------------------------------------------------------------------------
+
